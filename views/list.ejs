@@ -9,18 +9,21 @@
 
 <body>
   <div class="box" id="heading">
-    <h1><%= day %></h1>
+    <h1><%= listTitle %></h1>
   </div>
   <div class="box">
-      <%for(var i = 0; i < newItems.length; i++){%>
-      <div class="item">
-        <input type="checkbox">
-        <p><%= newItems[i] %></p>
-      </div>
-      <%}%>
+      <% newItems.forEach(function(item){ %>
+        <form class="item" action="/delete" method="post">
+        <div class="item">
+          <input type="checkbox" name="item" value="<%= item._id %>" onchange="this.form.submit()">
+          <p><%= item.name %></p>
+        </div>
+        <input type="hidden" name="listName" value="<%= listTitle %>"/>
+        </form>
+      <% }) %>
       <form class="item" action="/" method="post">
         <input type="text" name="newItem" value="" placeholder="add new item" autocomplete="off">
-        <button type="submit" name="button">+</button>
+        <button type="submit" name="list" value="<%= listTitle %>">+</button>
       </form>
   </div>
   </body>
